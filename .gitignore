@@ -1,0 +1,7 @@
+# MCP23017 Sample
+
+/sdkconfig.old
+/build/
+
+.DS_Store
+
