@@ -6,23 +6,26 @@
 
 class MCP23017 {
  public:
-  static constexpr uint8_t REGADDR_IODIRA =
-      0x00;  // GPIOA INPUT OUTPUT DIR (IOCON.BANK = 0)
-  static constexpr uint8_t REGADDR_IODIRB =
-      0x01;  // GPIOA INPUT OUTPUT DIR (IOCON.BANK = 0)
-  static constexpr uint8_t REGADDR_GPPUA =
-      0x0c;  // GPPUA PULLUP (IOCON.BANK = 0)
-  static constexpr uint8_t REGADDR_GPPUB =
-      0x0d;  // GPIOB PULLUP (IOCON.BANK = 0)
-  static constexpr uint8_t REGADDR_GPIOA = 0x12;  // GPIOA (IOCON.BANK = 0)
-  static constexpr uint8_t REGADDR_GPIOB = 0x13;  // GPIOB (IOCON.BANK = 0)
-
   static constexpr uint8_t GPIO_GROUP_A = 0;
   static constexpr uint8_t GPIO_GROUP_B = 1;
   static constexpr uint8_t GPIO_GROUP_NUM = GPIO_GROUP_B + 1;
   static constexpr uint8_t GPIO_MIN = 0;
   static constexpr uint8_t GPIO_MAX = 7;
   static constexpr uint8_t GPIO_NUM = GPIO_MAX + 1;
+
+ private:
+  /// GPIOA INPUT OUTPUT DIR (IOCON.BANK = 0)
+  static constexpr uint8_t REGADDR_IODIRA = 0x00;
+  /// GPIOA INPUT OUTPUT DIR (IOCON.BANK = 0)
+  static constexpr uint8_t REGADDR_IODIRB = 0x01;
+  /// GPPUA PULLUP (IOCON.BANK = 0)
+  static constexpr uint8_t REGADDR_GPPUA = 0x0c;
+  /// GPIOB PULLUP (IOCON.BANK = 0)
+  static constexpr uint8_t REGADDR_GPPUB = 0x0d;
+  // GPIOA (IOCON.BANK = 0)
+  static constexpr uint8_t REGADDR_GPIOA = 0x12;
+  // GPIOB (IOCON.BANK = 0)
+  static constexpr uint8_t REGADDR_GPIOB = 0x13;
 
   static constexpr uint8_t GPIO_REGADDR_IODIR_TBLE[GPIO_GROUP_NUM] = {
       REGADDR_IODIRA,
@@ -39,6 +42,7 @@ class MCP23017 {
       REGADDR_GPIOB,
   };
 
+ public:
   class GPIO {
    public:
     GPIO() : is_input_(false), is_up_(false) {}
@@ -144,7 +148,7 @@ class MCP23017 {
 
   /// GPIO出力設定
   void SetOutputGpio(uint8_t group_id, uint8_t gpio_no, bool is_output,
-               bool is_force = false) {
+                     bool is_force = false) {
     if (GPIO_GROUP_NUM <= group_id || GPIO_NUM <= gpio_no) {
       return;
     }
